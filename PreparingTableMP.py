@@ -22,6 +22,7 @@ def calculation1(lock, data_table_1, data_table_5, data_table_10, data_table_20,
     data_table_tt40 = np.frombuffer(data_table_40.get_obj()) #array for threshold 40
     data_table_tt80 = np.frombuffer(data_table_80.get_obj()) #array for threshold 80
 
+
     #reshaping arrays
     data_table_t1 = data_table_tt1.reshape((101, 10))
     data_table_t5 = data_table_tt5.reshape((101, 10))
