@@ -5,7 +5,7 @@ import multiprocessing
 
 np.seterr(divide='ignore', invalid='ignore')
 # divide training and testing data
-index70 = pd.read_csv('index70.csv', header=None)
+index70 = pd.read_csv('F:/dataset/rain_data/index70.csv', header=None)
 index70 = np.array(index70.values[0])
 # print(len(index70)) #26 values
 # print(index70[25])
@@ -14,7 +14,7 @@ index70 = np.array(index70.values[0])
 def calculation1(lock, data_table_1, data_table_5, data_table_10, data_table_20, data_table_40, data_table_80,
                  total_1, total_5, total_10, total_20, total_40, total_80, start, end):
     # read netcdf
-    netcdf_entire_dataset = Dataset("entire_dataset.nc", "r")
+    netcdf_entire_dataset = Dataset("F:/dataset/entire_dataset.nc", "r")
     rain_models = netcdf_entire_dataset.variables['rain_models']
 
     data_table_tt1 = np.frombuffer(data_table_1.get_obj()) #array for threshold 1
