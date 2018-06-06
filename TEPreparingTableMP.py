@@ -5,8 +5,8 @@ import multiprocessing
 
 np.seterr(divide='ignore', invalid='ignore')
 # divide training and testing data
-index70 = pd.read_csv('F:/dataset/rain_data/index70.csv', header=None)
-index70 = np.array(index70.values[0])
+index30 = pd.read_csv('F:/dataset/rain_data/index30.csv', header=None)
+index30 = np.array(index30.values[0])
 # print(len(index70)) #26 values
 # print(index70[25])
 
@@ -47,7 +47,7 @@ def calculation1(lock, data_table_1, data_table_5, data_table_10, data_table_20,
     total_t40 = total_tt40.reshape((15, 10))
     total_t80 = total_tt80.reshape((15, 10))
 
-    for i in index70[start:end]: # for all days
+    for i in index30[start:end]: # for all days
         for j in range(10): # for all times
             for k in range(1, 25): # for all models
                 single_file = rain_models[i, j, k, :, :] # model data
@@ -139,28 +139,25 @@ if __name__ == "__main__":
 
     t1 = multiprocessing.Process(name='First', target=calculation1,
         args=(lock, data_table_1, data_table_5, data_table_10, data_table_20, data_table_40, data_table_80,
-              total_1, total_5, total_10, total_20, total_40, total_80, 0, 3))
+              total_1, total_5, total_10, total_20, total_40, total_80, 0, 2))
     t2 = multiprocessing.Process(name='Second', target=calculation1,
         args=(lock, data_table_1, data_table_5, data_table_10, data_table_20, data_table_40, data_table_80,
-              total_1, total_5, total_10, total_20, total_40, total_80, 3, 6))
+              total_1, total_5, total_10, total_20, total_40, total_80, 2, 4))
     t3 = multiprocessing.Process(name='Second', target=calculation1,
         args=(lock, data_table_1, data_table_5, data_table_10, data_table_20, data_table_40, data_table_80,
-              total_1, total_5, total_10, total_20, total_40, total_80, 6, 9))
+              total_1, total_5, total_10, total_20, total_40, total_80, 4, 6))
     t4 = multiprocessing.Process(name='Second', target=calculation1,
         args=(lock, data_table_1, data_table_5, data_table_10, data_table_20, data_table_40, data_table_80,
-              total_1, total_5, total_10, total_20, total_40, total_80, 9, 12))
+              total_1, total_5, total_10, total_20, total_40, total_80, 6, 8))
     t5 = multiprocessing.Process(name='Second', target=calculation1,
         args=(lock, data_table_1, data_table_5, data_table_10, data_table_20, data_table_40, data_table_80,
-              total_1, total_5, total_10, total_20, total_40, total_80, 12, 15))
+              total_1, total_5, total_10, total_20, total_40, total_80, 8, 10))
     t6 = multiprocessing.Process(name='Second', target=calculation1,
         args=(lock, data_table_1, data_table_5, data_table_10, data_table_20, data_table_40, data_table_80,
-              total_1, total_5, total_10, total_20, total_40, total_80, 15, 18))
+              total_1, total_5, total_10, total_20, total_40, total_80, 10, 12))
     t7 = multiprocessing.Process(name='First', target=calculation1,
         args=(lock, data_table_1, data_table_5, data_table_10, data_table_20, data_table_40, data_table_80,
-              total_1, total_5, total_10, total_20, total_40, total_80, 18, 21))
-    t8 = multiprocessing.Process(name='Second', target=calculation1,
-        args=(lock, data_table_1, data_table_5, data_table_10, data_table_20, data_table_40, data_table_80,
-              total_1, total_5, total_10, total_20, total_40, total_80, 21, 26))
+              total_1, total_5, total_10, total_20, total_40, total_80, 12, 13))
 
     t1.start()
     t2.start()
@@ -169,7 +166,6 @@ if __name__ == "__main__":
     t5.start()
     t6.start()
     t7.start()
-    t8.start()
 
     t1.join()
     t2.join()
@@ -178,7 +174,6 @@ if __name__ == "__main__":
     t5.join()
     t6.join()
     t7.join()
-    t8.join()
     # MULTIPROCESSING ENDS
 
     data_table_tt1 = np.frombuffer(data_table_1.get_obj()) #array for threshold 1
